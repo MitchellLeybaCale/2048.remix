@@ -12,15 +12,17 @@
      THEME — change these to restyle the whole game
      ============================================================ */
   :root {
-    --bg: #eaf4fb;            /* page background */
-    --ink: #2b3a4a;           /* main text */
-    --panel: #7fb6dd;         /* score panels */
+    --bg: #f0fae8;            /* page background */
+    --ink: #1f3d0d;           /* main text */
+    --panel: #46CB18;         /* score panels */
     --panel-text: #ffffff;
-    --board: #5d9ec9;         /* board frame */
-    --cell: #cde4f2;          /* empty cell */
+    --board: #3aab14;         /* board frame */
+    --cell: #d4ebc0;          /* empty cell */
     --tile-bg: #ffffff;       /* tile card */
-    --accent: #ff8a5c;        /* buttons */
-    --accent-dark: #e9744a;
+    --accent: #FFFF00;        /* buttons */
+    --accent-dark: #e6e600;
+    --accent-text: #1f3d0d;   /* text on yellow buttons */
+    --heading-pop: #3aab14;   /* "Remix" word in heading */
     --radius: 14px;
   }
 
@@ -45,7 +47,7 @@
     font-weight: 700;
     letter-spacing: -1px;
   }
-  header h1 span { color: var(--accent); }
+  header h1 span { color: var(--heading-pop); }
 
   .scores {
     display: grid;
@@ -88,7 +90,7 @@
     font-family: inherit;
     font-weight: 600;
     font-size: 1rem;
-    color: #fff;
+    color: var(--accent-text);
     background: var(--accent);
     border: none;
     border-radius: 12px;
@@ -231,7 +233,7 @@
     <div class="board" id="board">
       <div class="grid" id="grid"></div>
       <div class="overlay" id="win-overlay">
-        <h2 id="win-title">You reached the top!</h2>
+        <h2 id="win-title">You won!</h2>
         <div class="buttons">
           <button id="keep-going">Keep going</button>
           <button id="win-restart">Play again</button>
@@ -257,15 +259,15 @@
    emoji + name show instead, so the game always works.
    ============================================================ */
 const TILES = [
-  { name: 'Sunshine',     emoji: '\u2600\uFE0F',  img: 'tile-1.png' },
-  { name: 'Puppy',        emoji: '\uD83D\uDC36',  img: 'tile-2.png' },
-  { name: 'Duomo',        emoji: '\uD83C\uDFDB\uFE0F', img: 'tile-3.png' },
-  { name: 'Flatirons',    emoji: '\u26F0\uFE0F',  img: 'tile-4.png' },
-  { name: 'Knicks',       emoji: '\uD83C\uDFC0',  img: 'tile-5.png' },
   { name: 'Beach day',    emoji: '\uD83C\uDFD6\uFE0F', img: 'tile-6.png' },
-  { name: 'Cup of tea',   emoji: '\uD83C\uDF75',  img: 'tile-7.png' },
-  { name: 'Spicy marg',   emoji: '\uD83C\uDF79',  img: 'tile-8.png' },
+  { name: 'Flatirons',    emoji: '\u26F0\uFE0F',  img: 'tile-4.png' },
   { name: 'Ski day',      emoji: '\uD83C\uDFBF',  img: 'tile-9.png' },
+  { name: 'Cup of tea',   emoji: '\uD83C\uDF75',  img: 'tile-7.png' },
+  { name: 'Knicks',       emoji: '\uD83C\uDFC0',  img: 'tile-5.png' },
+  { name: 'Duomo',        emoji: '\uD83C\uDFDB\uFE0F', img: 'tile-3.png' },
+  { name: 'Puppy',        emoji: '\uD83D\uDC36',  img: 'tile-2.png' },
+  { name: 'Spicy marg',   emoji: '\uD83C\uDF79',  img: 'tile-8.png' },
+  { name: 'Sunshine',     emoji: '\u2600\uFE0F',  img: 'tile-1.png' },
 ];
 const WIN_LEVEL = TILES.length; // reaching the last tile wins (then you can keep going)
 
@@ -466,7 +468,7 @@ function move(dr, dc) {
     animating = false;
     if (won && !keepPlaying) {
       document.getElementById('win-title').textContent =
-        'You reached ' + TILES[TILES.length - 1].name + '!';
+        'You Won ' + TILES[TILES.length - 1].name + '!';
       winOverlay.classList.add('show');
     } else if (isGameOver()) {
       loseOverlay.classList.add('show');
